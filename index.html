@@ -278,13 +278,19 @@ noBtn.style.transform = "none";
 growYes();
 }
 
-zone.addEventListener("pointermove", e => {
-const b = noBtn.getBoundingClientRect();
-const d = Math.hypot(
-(b.left + b.width / 2) - e.clientX,
-(b.top + b.height / 2) - e.clientY
-);
-if (d < 140) moveNo(e.clientX, e.clientY);
+noBtn.addEventListener("click", e => {
+  e.preventDefault();
+
+  // get button center as fake cursor position
+  const b = noBtn.getBoundingClientRect();
+  const centerX = b.left + b.width / 2;
+  const centerY = b.top + b.height / 2;
+
+  // move away from its own center (random direction)
+  const randomX = centerX + (Math.random() - 0.5) * 300;
+  const randomY = centerY + (Math.random() - 0.5) * 300;
+
+  moveNo(randomX, randomY);
 });
 
 noBtn.addEventListener("click", e => e.preventDefault());
@@ -300,5 +306,6 @@ fullScreenConfetti();
 </script>
 </body>
 </html>
+
 
 
